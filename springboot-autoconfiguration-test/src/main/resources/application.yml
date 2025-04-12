@@ -1,5 +1,0 @@
-aliyun:
-  oss:
-    endpoint: https://oss-cn-hangzhou.aliyuncs.com
-    bucketName: wzrxixi2
-    region: cn-hangzhou
