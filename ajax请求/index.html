@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/axios.js"></script>
+</head>
+<body>
+<input type="button" value="获取GET请求" onclick="get()">
+<input type="button" value="获取POST请求" onclick="post()">
+</body>
+<script>
+    function get(){
+        // axios({
+        //     method:'GET',
+        //     url:"https://mock.apifox.cn/m1/3128855-0-default/emp/list"
+        // }).then(res=>{
+        //     console.log(res.data);
+        // })
+        axios.get("https://mock.apifox.cn/m1/3128855-0-default/emp/list").then(res=>{
+            console.log(res.data)
+        })
+    }
+    function post(){
+        // axios({
+        //     method:'POST',
+        //     url:'https://mock.apifox.cn/m1/3128855-0-default/emp/deleteById',
+        //     data:{
+        //         id:1
+        //     }
+        // }).then(res=>{
+        //     console.log(res.data)
+        // })
+        axios.post('https://mock.apifox.cn/m1/3128855-0-default/emp/deleteById',{id:1}).then(res=>{
+            console.log(res.data)
+        })
+    }
+</script>
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuzengrui.mapper.EmpMapper">
+    <insert id="insertEmp">
+        insert into emp(username, name, gender, image, job, entrydate, dept_id, create_time, update_time)
+        values (#{username},#{name},#{gender},#{image},#{job},#{entrydate},#{deptId},#{createTime},#{updateTime})
+    </insert>
+    <update id="updateEmp">
+        update emp
+        <set>
+            username = #{username},name = #{name}, gender=#{gender},
+            <if test="image != null">image = #{image},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="entrydate != null">entrydate = #{entrydate},</if>
+            <if test="job != null">job = #{job},</if>
+            update_time = #{updateTime}
+        </set>
+    </update>
+    <delete id="delEmpByIds">
+        delete from emp where id in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <delete id="deleteEmpByDeptId">
+        delete from emp where dept_id = #{deptId}
+    </delete>
+    <select id="listEmp" resultType="com.wuzengrui.pojo.Emp">
+        select * from emp
+        <where>
+            <if test="name != null">name like concat("%",#{name},"%")</if>
+            <if test="gender != null">and gender = #{gender}</if>
+            <if test="begin != null and end != null"> and entrydate between #{begin} and #{end}</if>
+        </where>
+        order by update_time desc
+        limit #{page}  ,#{pageSize};
+    </select>
+    <select id="getEmpById" resultType="com.wuzengrui.pojo.Emp">
+        select * from emp where id = #{id};
+    </select>
+    <select id="loginEmp" resultType="java.lang.Integer">
+        select count(*) from emp where username=#{username} and password=#{password}
+    </select>
+</mapper>
